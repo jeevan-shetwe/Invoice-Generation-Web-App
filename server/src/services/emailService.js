@@ -3,17 +3,19 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+import dns from "dns";
+
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
-  family: 4, // 🔥 ADD THIS LINE (IMPORTANT)
+  family: 4,
+  lookup: dns.lookup, // 🔥 force IPv4 DNS resolution
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
 });
-
 export const EmailService = {
   sendInvoiceEmail: async (toEmail, invoiceNumber, pdfBuffer) => {
     if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
