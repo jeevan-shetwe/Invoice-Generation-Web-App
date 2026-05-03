@@ -95,20 +95,20 @@ const InvoicesList = () => {
   }, [invoices, activeFilter, search]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-emerald-50 p-4 md:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-emerald-50 p-3 md:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl shadow-lg shadow-emerald-200">
-                <Receipt size={28} className="text-white" />
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 mb-6 md:mb-10">
+          <div className="space-y-1 md:space-y-2">
+            <div className="flex items-center gap-2 md:gap-3">
+              <div className="p-2 md:p-3 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-lg md:rounded-2xl shadow-lg shadow-emerald-200">
+                <Receipt size={24} className="md:w-[28px] md:h-[28px] text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-black text-gray-900 tracking-tight">
+                <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">
                   Invoices
                 </h1>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="flex items-center gap-2 mt-0.5">
                   <div className="h-1 w-1 rounded-full bg-emerald-600"></div>
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
                     {loading
@@ -120,22 +120,23 @@ const InvoicesList = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <button
               onClick={exportToCSV}
-              className="flex items-center gap-2 px-5 py-3 bg-white border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 rounded-xl font-bold text-sm transition-all shadow-sm hover:shadow-md"
+              className="flex items-center gap-2 px-3 md:px-5 py-2.5 md:py-3 bg-white border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg md:rounded-xl font-bold text-xs md:text-sm transition-all shadow-sm hover:shadow-md"
             >
-              <Download size={16} /> Export
+              <Download size={16} /> <span className="hidden sm:inline">Export</span>
             </button>
             <Link
               to="/create-invoice"
-              className="group flex items-center gap-2.5 px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl font-bold text-sm transition-all shadow-lg shadow-emerald-200 hover:shadow-xl hover:shadow-emerald-300 hover:-translate-y-0.5"
+              className="group flex items-center gap-2 px-3 md:px-6 py-2.5 md:py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-lg md:rounded-xl font-bold text-xs md:text-sm transition-all shadow-lg shadow-emerald-200 hover:shadow-xl hover:shadow-emerald-300 hover:-translate-y-0.5"
             >
               <Plus
-                size={18}
-                className="group-hover:scale-110 transition-transform"
+                size={16}
+                className="md:w-[18px] md:h-[18px] group-hover:scale-110 transition-transform"
               />{" "}
-              New Invoice
+              <span className="hidden sm:inline">New Invoice</span>
+              <span className="sm:hidden">New</span>
             </Link>
           </div>
         </div>
