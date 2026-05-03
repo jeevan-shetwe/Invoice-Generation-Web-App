@@ -182,6 +182,18 @@ const InvoiceDetail = () => {
               </button>
             )}
 
+            {!isLocked && (isDraft || isFinalised) && (
+              <button
+                onClick={() =>
+                  window.confirm("Are you sure you want to cancel this invoice?") &&
+                  handleStatusUpdate("Cancelled", "Invoice Cancelled")
+                }
+                className="flex items-center gap-2 px-5 py-3 bg-red-600 text-white hover:bg-red-700 rounded-xl font-bold text-sm transition-all shadow-lg shadow-red-200"
+              >
+                <AlertCircle size={16} /> Cancel Invoice
+              </button>
+            )}
+
             <PDFDownloadLink
               document={
                 <InvoicePDF
