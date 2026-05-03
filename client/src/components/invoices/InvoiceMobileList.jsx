@@ -6,11 +6,11 @@ const InvoiceMobileList = ({ invoices, loading, formatCurrency }) => {
 
   if (loading) {
     return (
-      <div className="md:hidden space-y-3">
+      <div className="md:hidden space-y-2">
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="bg-white p-5 rounded-2xl border-2 border-gray-100 animate-pulse space-y-3 shadow-sm"
+            className="bg-white p-4 rounded-xl border border-gray-100 animate-pulse space-y-2 shadow-xs"
           >
             <div className="flex justify-between">
               <div className="h-4 w-24 bg-gray-100 rounded-lg" />
@@ -24,28 +24,28 @@ const InvoiceMobileList = ({ invoices, loading, formatCurrency }) => {
   }
 
   return (
-    <div className="md:hidden space-y-4">
+    <div className="md:hidden space-y-2">
       {invoices.map((inv) => (
         <div
           key={inv.id}
           onClick={() => navigate(`/invoices/${inv.id}`)}
-          className="bg-white p-5 rounded-2xl border-2 border-gray-100 shadow-sm active:scale-[0.98] hover:border-emerald-200 hover:shadow-md transition-all cursor-pointer"
+          className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs active:scale-[0.98] hover:border-emerald-200 hover:shadow-sm transition-all cursor-pointer"
         >
-          <div className="flex justify-between items-start mb-4">
+          <div className="flex justify-between items-start mb-3">
             <div>
-              <p className="text-sm font-black text-gray-900">
+              <p className="text-sm font-bold text-gray-900">
                 {inv.invoiceNumber}
               </p>
-              <p className="text-xs font-bold text-gray-400 mt-0.5">
+              <p className="text-xs font-medium text-gray-500 mt-0.5">
                 {inv.client?.name || "Unknown"}
               </p>
             </div>
-            <p className="text-lg font-black text-emerald-600">
+            <p className="text-base font-bold text-emerald-600">
               {formatCurrency(inv.grandTotal, inv.currency)}
             </p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-xs font-black text-gray-400 uppercase tracking-widest">
+            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">
               {inv.issueDate}
             </p>
             <InvoiceStatusBadge status={inv.status} />

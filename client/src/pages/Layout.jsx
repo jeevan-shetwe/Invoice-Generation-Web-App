@@ -263,26 +263,19 @@ const SidebarContent = ({ location, handleLogout, user, onClose }) => {
               border: user?.logoUrl ? "1px solid #e5e7eb" : "none",
             }}
           >
-            {/* {user?.logoUrl ? (
+            {user?.logoUrl ? (
               <img
-                src={`http://localhost:5000${user.logoUrl}`}
+                src={
+                  user.logoUrl.startsWith("http")
+                    ? user.logoUrl
+                    : `http://localhost:5000${user.logoUrl}`
+                }
                 alt="Logo"
                 style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
             ) : (
               initials
-            )} */}
-
-
-            {user?.logoUrl ? (
-  <img 
-    src={user.logoUrl.startsWith('http') ? user.logoUrl : `http://localhost:5000${user.logoUrl}`} 
-    alt="Logo" 
-    style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
-  />
-) : (
-  initials
-)}
+            )}
           </div>
           <div className="sb-hide" style={{ overflow: "hidden", flex: 1 }}>
             <p
@@ -494,12 +487,14 @@ const Layout = () => {
             overflowY: "auto",
             display: "flex",
             flexDirection: "column",
+            padding: 0,
+            margin: 0,
           }}
         >
           {/* Spacer pushes content below the fixed mobile top bar */}
           <div
             className="mobile-topbar-spacer"
-            style={{ height: "56px", display: "none" }}
+            style={{ height: "56px", display: "none", flexShrink: 0 }}
           />
           <div
             style={{
@@ -508,6 +503,7 @@ const Layout = () => {
               margin: "0 auto",
               flex: 1,
               boxSizing: "border-box",
+              padding: "0",
             }}
           >
             <Outlet />
