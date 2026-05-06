@@ -423,7 +423,60 @@ export const EmailService = {
     }
   },
 
-  // 10. SEND PAYMENT CONFIRMATION
+  // 10. SEND MAGIC LINK (ALIAS FOR PASSWORD RESET)
+  sendMagicLink: async (toEmail, resetToken) => {
+    try {
+      const resetUrl = `${FRONTEND_URL}/reset-password?token=${resetToken}`;
+
+      const mailOptions = {
+        from: `${SENDER_NAME} <${SENDER_EMAIL}>`,
+        to: toEmail,
+        subject: "Reset Your Password",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+              <h2 style="color: #333; margin: 0;">Password Reset Request</h2>
+            </div>
+            <p style="color: #666; line-height: 1.6;">
+              We received a request to reset your password. Click the button below to proceed:
+            </p>
+            <div style="margin: 30px 0; text-align: center;">
+              <a href="${resetUrl}" style="display: inline-block; padding: 12px 32px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">
+                Reset Password
+              </a>
+            </div>
+            <p style="color: #666; line-height: 1.6; word-break: break-all;">
+              Or copy this link: <a href="${resetUrl}" style="color: #007bff;">${resetUrl}</a>
+            </p>
+            <p style="margin-top: 20px; color: #999; font-size: 12px;">
+              ⏱️ This link expires in 24 hours.
+            </p>
+            <p style="margin-top: 20px; color: #999; font-size: 12px;">
+              If you didn't request this, please ignore this email.
+            </p>
+          </div>
+        `,
+      };
+
+      const info = await transporter.sendMail(mailOptions);
+      console.log(`✅ Magic link email sent to ${toEmail}`);
+      console.log(`   Message ID: ${info.messageId}`);
+
+      return {
+        success: true,
+        messageId: info.messageId,
+        recipient: toEmail,
+      };
+    } catch (error) {
+      console.error(`❌ Failed to send magic link:`, error.message);
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+  },
+
+  // 11. SEND PAYMENT CONFIRMATION
   sendPaymentConfirmation: async (toEmail, paymentData) => {
     try {
       const mailOptions = {
